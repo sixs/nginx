@@ -1,0 +1,13 @@
+@app.route("{path_placeholder}", methods=["{methods_placeholder}"])
+def access_token({params_placeholder}):
+    url = "{endpoint_placeholder}" + request.path
+
+    headers = dict(request.headers)
+    del_header_keys = ["Host"]
+    for header_key in del_header_keys:
+        if header_key in headers:
+            del headers[header_key]
+
+    req = requests.request(request.method, url, headers=headers, data=request.get_data(), params=request.get_data(),
+                           timeout=5, verify=False)
+    return req.content, req.status_code
